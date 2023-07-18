@@ -7,7 +7,9 @@ COLORS = {
     2: (225, 230, 225),
     4: (225, 230,112),
     8: (225, 230, 0),
-    
+    16: (0,230,112),
+    32: (0,230,230),
+    64: (112,230,230),
 }
 WHITE = (255, 255, 255)
 GRAY = (130, 130, 130)
@@ -21,7 +23,7 @@ HEIGTH = WIDTH + 110
 TITLE_REC = pygame.Rect(0, 0, WIDTH,110)
 
 
-def draw_interface():
+def draw_interface():       #отображение массива
     pygame.draw.rect(screen, WHITE, TITLE_REC)
     font = pygame.font.SysFont("stxingkai", 70)
     prety_print(mas)
@@ -58,12 +60,16 @@ pygame.display.set_caption("2048")
 draw_interface()
 pygame.display.update()
 
-while is_zero_in_mas(mas):
+while is_zero_in_mas(mas):      #создание игрового цикла
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit(0)
         elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                mas = move_left(mas)
+            if event.key == pygame.K_RIGHT:
+                mas = move_right(mas)
             empty = get_empty_list(mas)
             random.shuffle(empty)
             random_num = empty.pop()
