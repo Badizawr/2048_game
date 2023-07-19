@@ -5,11 +5,15 @@ from logics import *
 COLORS = {
     0: (130, 130, 130),
     2: (225, 230, 225),
-    4: (225, 230,112),
-    8: (225, 230, 0),
-    16: (0,230,112),
-    32: (0,230,230),
-    64: (112,230,230),
+    4: (225, 230, 112),
+    8: (225, 230, 5),
+    16: (5, 230, 112),
+    32: (5, 230, 230),
+    64: (112, 230, 230),
+    128: (112, 5, 230),
+    256: (112, 112, 230),
+    512: (112, 112, 5),
+    1024: (5, 5, 230),
 }
 WHITE = (255, 255, 255)
 GRAY = (130, 130, 130)
@@ -60,7 +64,7 @@ pygame.display.set_caption("2048")
 draw_interface()
 pygame.display.update()
 
-while is_zero_in_mas(mas):      #создание игрового цикла
+while is_zero_in_mas(mas) or can_move(mas):      #создание игрового цикла
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -68,8 +72,12 @@ while is_zero_in_mas(mas):      #создание игрового цикла
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 mas = move_left(mas)
-            if event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT:
                 mas = move_right(mas)
+            elif event.key == pygame.K_UP:
+                mas = move_up(mas)
+            elif event.key == pygame.K_DOWN:
+                mas = move_down(mas)
             empty = get_empty_list(mas)
             random.shuffle(empty)
             random_num = empty.pop()
