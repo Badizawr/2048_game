@@ -10,13 +10,16 @@ create table if not exists RECORDS (
 )
             """)
 
-cur.execute("""
-SELECT name gamer,  max(score) score
-FROM RECORDS
-GROUP BY name
-ORDER BY score DESC
-LIMIT 3;
-""")
-result = cur.fetchall()
-print(result)
-cur.close()
+
+def get_best():
+    cur.execute("""
+    SELECT name gamer,  max(score) score
+    FROM RECORDS
+    GROUP BY name
+    ORDER BY score DESC
+    LIMIT 3;
+    """)
+    return cur.fetchall()
+
+
+print(get_best())
