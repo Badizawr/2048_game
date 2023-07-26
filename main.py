@@ -71,6 +71,27 @@ def draw_interface(score, delta = 0):       #отображение массив
                 text_y = h + (SIZE_BLOCK - font_h) / 2
                 screen.blit(text, (text_x, text_y))
 
+def draw_intro():
+    img2048 = pygame.image.load('icon.png')
+    font = pygame.font.SysFont("stxingkai", 70)
+    text_welcome = font.render("Welcome!", True, WHITE)
+    name = 'text'
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.unicode.isalpha():
+                    name += event.unicode
+
+        text_name = font.render(name, True, WHITE)
+        rect_name = text_name.get_rect()
+        rect_name.center = screen.get_rect().center
+        screen.blit(img2048, [10, 10])
+        screen.blit(text_welcome, (230, 70))
+        screen.blit(text_name, rect_name)
+        pygame.display.update()
 
 mas = [
     [0, 0, 0, 0],
@@ -91,6 +112,10 @@ prety_print(mas)
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGTH))
 pygame.display.set_caption("2048")
+
+draw_intro()
+
+
 draw_interface(score)
 pygame.display.update()
 
